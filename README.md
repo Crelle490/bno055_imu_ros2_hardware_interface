@@ -1,6 +1,8 @@
 # bno055_hardware_interface
 
-A ROS 2 hardware interface plugin for exposing data from a Bosch BNO055 IMU over I2C to the `ros2_control` framework. The package wraps the [`imu_bno055` driver](https://github.com/dheera/ros-imu-bno055) and exports orientation, angular velocity, and linear acceleration state interfaces for use in controllers or fused localization nodes.
+A ROS 2 hardware interface plugin for exposing data from a Bosch BNO055 IMU over I2C to the `ros2_control` framework. The package wraps the [`imu_bno055` driver](https://github.com/dheera/ros-imu-bno055) and exports orientation, angular velocity, and linear acceleration state interfaces for use in controllers or fused localization nodes. 
+
+See [AUTHORS.md](AUTHORS.md) for full credits.
 
 ## Features
 - Implements `hardware_interface::SensorInterface` to publish IMU state interfaces (orientation quaternion, angular velocity, linear acceleration).

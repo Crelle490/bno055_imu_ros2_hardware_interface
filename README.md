@@ -8,15 +8,15 @@ A ROS 2 hardware interface plugin for exposing data from a Bosch BNO055 IMU ove
 - Packaged as a `pluginlib` plugin for loading through `ros2_control` hardware abstraction.
 
 ## Package layout
-- `include/bno055_hardware_interface/bno055_hardware.hpp` – public hardware interface definition and configuration parameters (I2C device path, address, frame ID).【F:include/bno055_hardware_interface/bno055_hardware.hpp†L1-L50】
-- `src/bno055_hardware.cpp` – lifecycle hooks, state interface export, and read loop that fetches data from the driver and populates the state interfaces.【F:src/bno055_hardware.cpp†L1-L86】
-- `bno055_hardware_interface.xml` – plugin registration for `pluginlib`/`ros2_control`.【F:bno055_hardware_interface.xml†L1-L9】
-- `CMakeLists.txt` and `package.xml` – ROS 2 build configuration and dependencies.【F:CMakeLists.txt†L1-L58】【F:package.xml†L1-L23】
+- `include/bno055_hardware_interface/bno055_hardware.hpp` – public hardware interface definition and configuration parameters (I2C device path, address, frame ID).
+- `src/bno055_hardware.cpp` – lifecycle hooks, state interface export, and read loop that fetches data from the driver and populates the state interfaces.
+- `bno055_hardware_interface.xml` – plugin registration for `pluginlib`/`ros2_control`.
+- `CMakeLists.txt` and `package.xml` – ROS 2 build configuration and dependencies.
 
 ## Dependencies
 - ROS 2 (tested with the build settings in the repository) with `ros2_control` packages providing `hardware_interface` and `pluginlib`.
 - `imu_bno055` driver library (pulled in via `find_package`).
-- I2C development headers (`libi2c-dev`).【F:package.xml†L11-L16】
+- I2C development headers (`libi2c-dev`).
 
 ## Building
 1. Clone the repository into a ROS 2 workspace `src` directory alongside the `imu_bno055` driver.
@@ -56,14 +56,14 @@ Example URDF snippet:
 
 ### Hardware parameters
 The interface reads configuration from hardware parameters defined in the `ros2_control` hardware block:
-- `device`: I2C device path (default: `/dev/i2c-1`).【F:include/bno055_hardware_interface/bno055_hardware.hpp†L20-L24】
-- `address`: I2C address as an integer (default: `40`, i.e., `0x28`).【F:include/bno055_hardware_interface/bno055_hardware.hpp†L21-L23】【F:src/bno055_hardware.cpp†L23-L29】
-- `frame_id`: Frame name to associate with IMU data (default: `imu_link`).【F:include/bno055_hardware_interface/bno055_hardware.hpp†L20-L24】
+- `device`: I2C device path (default: `/dev/i2c-1`).
+- `address`: I2C address as an integer (default: `40`, i.e., `0x28`).
+- `frame_id`: Frame name to associate with IMU data (default: `imu_link`).
 
 ## Runtime behavior
-- On activation, the interface initializes the I2C driver, readying the IMU for reads.【F:src/bno055_hardware.cpp†L45-L57】
-- Each call to `read()` polls the sensor, logging a warning if an exception is thrown, and updates orientation, linear acceleration (scaled from centi-m/s² to m/s² by dividing by 100), and angular velocity (scaled from raw units by dividing by 900).【F:src/bno055_hardware.cpp†L63-L83】
-- `export_state_interfaces()` exposes the nine IMU state channels expected by `ros2_control` sensors.【F:src/bno055_hardware.cpp†L31-L44】
+- On activation, the interface initializes the I2C driver, readying the IMU for reads.
+- Each call to `read()` polls the sensor, logging a warning if an exception is thrown, and updates orientation, linear acceleration (scaled from centi-m/s² to m/s² by dividing by 100), and angular velocity (scaled from raw units by dividing by 900).
+- `export_state_interfaces()` exposes the nine IMU state channels expected by `ros2_control` sensors.
 
 ## Usage notes
 - Ensure the BNO055 is wired for I2C and visible at the configured address (commonly `0x28` or `0x29`).
@@ -71,4 +71,4 @@ The interface reads configuration from hardware parameters defined in the `ros2_
 - For downstream consumers (e.g., `robot_localization`), use the state interfaces to publish a `sensor_msgs/Imu` message within your controller or a custom node.
 
 ## License and maintenance
-Update the `package.xml` license and maintainer fields as appropriate for your distribution.【F:package.xml†L5-L10】
+Update the `package.xml` license and maintainer fields as appropriate for your distribution.
